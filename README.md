@@ -621,7 +621,7 @@ const getBody = async (url) => {
   const res = await fetch(url)
   const text = await res.text()
   
-  Возвращаем только то что в body
+  // Возвращаем только то что в body
   return text.split(/(<body>|<\/body>)/)[2]
 }
 
