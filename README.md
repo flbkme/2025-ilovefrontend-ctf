@@ -239,7 +239,7 @@ Cмотрим что есть в `wasmBindings` видим 3 метода `run`,
 Потыкав методы видим, что `default` и `initSync` по факту делаю одно и тоже, просто одно промис а другое нет
 
 
-Используем initSync который авплевывает выплевывает память в виде буфера
+Используем `initSync`, который выплевывает память в виде буфера
 
 ```js
 const memory = (new TextDecoder("utf-8")).decode(wasmBindings.initSync().memory.buffer)
