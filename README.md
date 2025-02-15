@@ -594,7 +594,7 @@ curl -s https://jkndlsmn.ctf-2025.ilovefrontend.ru/
 
 Получаем статусы из Вконтакте 2007ого года, ностальгируем
 
-Не буду долго томить, в случае если мы сфетчим `mirror.html` то получим зеркальную копию этого шедевра.
+Не буду долго томить, в случае если мы сходим в `/mirror.html` то получим зеркальную копию этого шедевра.
 
 Это было последнее задание, мозги уже не хотели соображать, поэтому я решил обратиться в чат за подсказкой.
 
@@ -617,23 +617,39 @@ const reversed = mirror.split('\n')
 И дальше пробегаемся по каждому символу и оставляем только те которые не похожи
 
 ```js
-const original = `...` // оригинальное изображение, нужно только сырой текст body
-const mirror = `...` // оригинальное изображение, нужно только сырой текст body в mirror.html
+const splitRegexp = /(<body>|<\/body>)/;
 
-const reversed = mirror.split('\n')
-  .map(el => Array.from(el).reverse('').join(''))
-  .join('\n')
+const getDiff = async () => {
+    // Оригинал, только то что в body
+    const original =  await fetch('https://jkndlsmn.ctf-2025.ilovefrontend.ru')
+        .then(res => res.text())
+        .then(text => text.split(splitRegexp)[2])
+    
+    // Отраженное, только то что в body
+    const mirror = await fetch('https://jkndlsmn.ctf-2025.ilovefrontend.ru/mirror.html')
+        .then(res => res.text())
+        .then(text => text.split(splitRegexp)[2])
+    
+    // Разворачиваем каждую строку
+    const reversed = mirror.split('\n')
+        .map(el => Array.from(el).reverse('').join(''))
+        .join('\n')
+    
+    // Если разные то добавляем элемент из оригинала
+    // нет - пропускаем
+    const result = Array.from(original).reduce((acc, el, index) => {
+      if (el !== reversed[index]) acc += el;
 
-Array.from(original).reduce((acc, el, index) => {
-  if (el !== reversed[index]) acc += el;
+      return acc;
+    }, '')
 
-  return acc;
-}, '')
+    console.log(result)
+}
 
-// out: '{flag_mona_7tjq}'
+getDiff();
 ```
 
-И вот он наш многострадальный флаг
+Впихиваем это в консоль и вот он наш многострадальный флаг
 
 Флаг: `{flag_mona_7tjq}`
 
