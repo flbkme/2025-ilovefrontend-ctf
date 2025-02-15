@@ -617,18 +617,19 @@ const reversed = mirror.split('\n')
 И дальше пробегаемся по каждому символу и оставляем только те которые не похожи
 
 ```js
-const splitRegexp = /(<body>|<\/body>)/;
+const getBody = async (url) => {
+  const res = await fetch(url)
+  const text = await res.text()
+  
+  Возвращаем только то что в body
+  return text.split(/(<body>|<\/body>)/)[2]
+}
 
 const getDiff = async () => {
-    // Оригинал, только то что в body
-    const original =  await fetch('https://jkndlsmn.ctf-2025.ilovefrontend.ru')
-        .then(res => res.text())
-        .then(text => text.split(splitRegexp)[2])
-    
-    // Отраженное, только то что в body
-    const mirror = await fetch('https://jkndlsmn.ctf-2025.ilovefrontend.ru/mirror.html')
-        .then(res => res.text())
-        .then(text => text.split(splitRegexp)[2])
+    // Оригинал
+    const original = await getBody('/index.html')
+    // Отзеркаленное
+    const mirror = await getBody('/mirror.html')
     
     // Разворачиваем каждую строку
     const reversed = mirror.split('\n')
