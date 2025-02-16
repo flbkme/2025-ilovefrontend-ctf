@@ -103,7 +103,7 @@ echo -n e2ZsYWdfYmFzZTY0X2VuY29kaW5nfQ== | base64 -d
 
 > ...program that takes no input and produces a copy of its own source code as its only output.
 
-Далее решил прошерстить код, и заметил функицю с названием `paintSpecialTokenHighlights`, которая делает какую-то "специальную" постветку для символов на следующих позициях:
+Далее решил прошерстить код, и заметил функицю с названием `paintSpecialTokenHighlights`, которая делает какую-то "специальную" подсветку для символов на следующих позициях:
 
 ```js
 const pos = [ 20, 567, 588, 589, 606, 801, 830, 831,832, 833, 834,835, 836, 837, 838, 845, 1200, 1707, 1722, 1813, 1949, 2324 ];
