@@ -137,6 +137,8 @@ pos.map(el => src[el]).join("")
 
 Пока решал - понял что эти пробелы это оффсет от первой клетки слева, поэтому все что нужно это решить кроссворд и получить флаг
 
+Для того, чтобы писать прямо в дивах и не париться используем [это](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)
+
 Флаг: `{flag_quiz_again}`
 
 
